@@ -20,13 +20,19 @@ app.use(rateLimit({
 
 // ✅ Middleware (IMPORTANT: express.json() must be first!)
 app.use(express.json()); 
+// app.use(cors({
+//     origin: ["http://127.0.0.1:5500", "http://localhost:5500", "http://localhost:5000"],
+//     methods: ["GET", "POST", "PUT", "DELETE"],
+//     allowedHeaders: ["Content-Type", "Authorization"],
+//     credentials: true
+// }));
+// ;
 app.use(cors({
-    origin: ["http://127.0.0.1:5500", "http://localhost:5500", "http://localhost:5000"],
+    origin: ["http://127.0.0.1:5500", "http://localhost:5500", "http://localhost:5000", "http://localhost:5173"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true
 }));
-;
 
 
 
@@ -453,9 +459,13 @@ app.get('/scores', authenticateToken, (req, res) => {
     });
 });
 // ✅ Start Server
-app.listen(PORT, () => {
-    console.log(`🚀 Server is running on port ${PORT}`);
+// app.listen(PORT, () => {
+//     console.log(`🚀 Server is running on port ${PORT}`);
+// });
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`🚀 Server is running at http://0.0.0.0:${PORT}`);
 });
+
 // Move this to the bottom of server.js
 app.use((req, res, next) => {
     if (!res.headersSent) {
